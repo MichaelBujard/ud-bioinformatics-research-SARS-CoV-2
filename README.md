@@ -1,4 +1,4 @@
-# ud-bioinformatics-research-sars-cov-2
+# ud-bioinformatics-research-SARS-CoV-2
 Computational biology research of SARS-CoV-2 phylogenetics.
 
 University of Dallas, Irving, TX	
