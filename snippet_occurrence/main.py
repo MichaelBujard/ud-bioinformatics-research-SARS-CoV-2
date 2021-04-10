@@ -156,6 +156,7 @@ if __name__ == '__main__':
         FILE = open(USER_INPUT_PATH, 'r')
         print("Hooray we found your file!")
         print("The program is fetching snippet occurrence stats about your input file.\n")
+
         # stuff you do with the file goes here
         # FILE is the file
         # FILE contains the accession list, and nothing else.
