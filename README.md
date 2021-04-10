@@ -11,6 +11,7 @@ Advisors: Dr. Robert Hochberg and Dr. Inimary Toby
 
 Description: Build a computational model to classify viral strains of SARS-CoV-2. Implement phylogenetic pattern recognition to map sequence data types to biological systems. Co-design solutions and diagnostics for research in biomarkers. Collaborate and participate in research with a community of machine learning engineers and other researchers. Assist the research community to publish, present, and distribute teachable resources based on the research.
 
+This April, for the following weeks, our work will be in the directory pcoviduals
 
 The following text is copied from the UD Bioinformatics Club Repository README, for historical reasons:
 
