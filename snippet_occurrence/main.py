@@ -68,7 +68,7 @@ def get_ID_sequence_map(string):
     sequences.pop(0)
 
     for index in range(len(ids)):
-        seq_map[ids[index]] = sequences[index]  # map ID to its corresponding sequence
+        seq_map["_" + ids[index]] = sequences[index]  # map ID to its corresponding sequence
 
     return seq_map
 
@@ -171,10 +171,10 @@ if __name__ == '__main__':
         snippet_map = get_ID_sequence_map(seq_str)
         s_o_map = map_snippet_occurrence(snippet_map)
         print(snippet_map)
-        print(snippet_occurrences_between_two_sequences(s_o_map, 'QRU91014.1', 'QRU91938.1'))
-
-        print(snippet_occurrences_between_two_sequences(s_o_map, 'QRU91938.1', 'QRU91014.1'))
-        print(ratio_of_snippet_occurrences_to_sequence_length(s_o_map, 'QRU91938.1', 'QRU91014.1'))
+        print(snippet_occurrences_between_two_sequences(s_o_map, '_QRU91014.1', '_QRU91938.1'))
+        print(s_o_map)
+        print(snippet_occurrences_between_two_sequences(s_o_map, '_QRU91938.1', '_QRU91014.1'))
+        print(ratio_of_snippet_occurrences_to_sequence_length(s_o_map, '_QRU91938.1', '_QRU91014.1'))
 
         print("Do you want to run Snippet Occurrence for another file? Type Y\\N:\n")
         while not exit_flag:
