@@ -68,7 +68,7 @@ def get_ID_sequence_map(string):
     sequences.pop(0)
 
     for index in range(len(ids)):
-        seq_map["_" + ids[index]] = sequences[index]  # map ID to its corresponding sequence
+        seq_map[ids[index]] = sequences[index]  # map ID to its corresponding sequence
 
     return seq_map
 
