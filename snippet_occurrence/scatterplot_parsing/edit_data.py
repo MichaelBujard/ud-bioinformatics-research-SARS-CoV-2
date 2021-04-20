@@ -47,6 +47,11 @@ a_file = open("data_parsed.txt", "r")
 lines = a_file.readlines()
 a_file.close()
 
-new_file.open("data_parsed_no_repeats", "w")
+new_file = open("data_parsed_no_repeats", "w")
 for line in lines:
-    print(line) # debugging
+    line_lst = line.strip("\n").split()
+    first_outr_accn_id, second_outr_accn_id = line_lst[0], line_lst[1]
+    for inner_line in lines:
+        inner_line_lst = inner_line.strip("\n").split()
+        first_innr_accn_id, second_innr_accn_id = inner_line_lst[0], inner_line_lst[1]
+        #TODO: Finish. if (first_outr_accn_id != second_innr_accn_id)
