@@ -47,11 +47,20 @@ a_file = open("data_parsed.txt", "r")
 lines = a_file.readlines()
 a_file.close()
 
-new_file = open("data_parsed_no_repeats", "w")
-for line in lines:
-    line_lst = line.strip("\n").split()
+new_file = open("data_parsed_no_repeats.txt", "w")
+new_file.write("SEQUENCE_PAIRS" + "\t" + "AA_MISMATCHES" + "\n")
+for i in range(len(lines)):
+    line_lst = lines[i].strip("\n").split()
+    #print("outer loop", line_lst)
     first_outr_accn_id, second_outr_accn_id = line_lst[0], line_lst[1]
-    for inner_line in lines:
-        inner_line_lst = inner_line.strip("\n").split()
-        first_innr_accn_id, second_innr_accn_id = inner_line_lst[0], inner_line_lst[1]
-        #TODO: Finish. if (first_outr_accn_id != second_innr_accn_id)
+    for j in range(i, len(lines)):
+        if i != j:
+            inner_line_lst = lines[j].strip("\n").split()
+            first_innr_accn_id, second_innr_accn_id = inner_line_lst[0], inner_line_lst[1]
+            if first_outr_accn_id == second_innr_accn_id:
+                if second_outr_accn_id == first_innr_accn_id:
+                    if lines[i].strip("\n").split()[2] != '0':
+                        lst = lines[i].strip("\n").split()
+                        new_file.write(lst[0] + "_" + lst[1] + "\t" + lst[2] + "\n")
+
+
