@@ -47,8 +47,8 @@ a_file = open("data_parsed.txt", "r")
 lines = a_file.readlines()
 a_file.close()
 
-new_file = open("data_parsed_no_repeats.txt", "w")
-new_file.write("SEQUENCE_PAIRS" + "\t" + "AA_MISMATCHES" + "\n")
+new_file = open("data_parsed_no_repeats.csv", "w")
+new_file.write("SEQUENCE_PAIRS" + "," + "AA_MISMATCHES" + "\n")
 for i in range(len(lines)):
     line_lst = lines[i].strip("\n").split()
     #print("outer loop", line_lst)
@@ -61,6 +61,6 @@ for i in range(len(lines)):
                 if second_outr_accn_id == first_innr_accn_id:
                     if lines[i].strip("\n").split()[2] != '0':
                         lst = lines[i].strip("\n").split()
-                        new_file.write(lst[0] + "_" + lst[1] + "\t" + lst[2] + "\n")
+                        new_file.write(lst[0] + "_" + lst[1] + "," + lst[2] + "\n")
 
 
