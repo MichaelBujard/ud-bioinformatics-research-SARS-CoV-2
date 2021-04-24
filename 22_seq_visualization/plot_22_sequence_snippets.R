@@ -37,21 +37,32 @@ head(snippets)
 snippet_table <- table(snippets$AA_MISMATCHES)
 
 print(snippet_table)
+
+numberIDs <- length(snippets$SEQUENCE_PAIRS)
+print(numberIDs)
         
 # get data and organize it as a data frame
 df <- data.frame(group = c(rep(snippets$SEQUENCE_PAIRS)),
+                 values = snippets$AA_MISMATCHES)
+
+# another way to get data, with x-values being the 1st, 2nd, ..., nth id in file
+# as the x-values.
+# get data and organize it as a data frame
+dfTwo <- data.frame(group = c(seq(1, numberIDs, 1)),
                  values = snippets$AA_MISMATCHES)
 
 # PLOT ################################################
 # Plotting the snippet table. Basic plot. Numbers along the x-axis
 # correspond to the columns, and y-values to row entries for each column in
 # the snippet_table above.
-plot(snippet_table)
+plot(snippet_table,
+     main="Frequency vs. Pairs",
+     xlab="Snippet Occurrence Frequency",
+     ylab="Spike Protein Sequence Pairs")
 
 # a slightly more aesthetic visualization with title and x-, y-labels.
 barplot(snippet_table,
         col='dark red',
-        sep='black',
         main="Frequency vs. Pairs",
         xlab="Snippet Occurrence Frequency", 
         ylab="Spike Protein Sequence Pairs",
@@ -59,11 +70,14 @@ barplot(snippet_table,
         ylim=c(0,40)
 )
 
-# another plot, trying different params to check output
+print(length(snippets$SEQUENCE_PAIRS))
+print(length(numberIDs))
+
+# using ggplots2 library, plot with x-labels being the accession ID pairs
 ggplot(df) + 
         geom_bar(aes(group, values, fill = group), stat = "identity", width = .8) +
         ylab("Snippet Frequency") +
-        xlab("Sequence Pairs") +
+        ylab("Snippet Frequency") +
         ggtitle("Snippet Occurrence Per Sequence Comparison") +
         theme(legend.position = "none", 
               axis.text.x = element_text(angle = 45,
@@ -72,24 +86,50 @@ ggplot(df) +
                                          margin = margin(r=0)),
               plot.title = element_text(hjust = 0.5))
 
-# (5) another plot, using a different function to compare results
-ggplot(df) +
-        geom_col(aes(group, values, fill = group), stat = "identity", width = .8) +
+# another plot, barplot, trying numeric representation of accession data
+ggplot(df) + 
+        geom_bar(aes(group, values, fill = group), stat = "identity", width = .8) +
         ylab("Snippet Frequency") +
-        xlab("Sequence Pairs") +
+        scale_x_discrete(name="Sequence Pairs",
+                         breaks = snippets$SEQUENCE_PAIRS,
+                         labels= 1 : numberIDs) +
         ggtitle("Snippet Occurrence Per Sequence Comparison") +
-        theme(legend.position = "none",
-              axis.text.x = element_text(angle = 45, 
+        theme(legend.position = "none", 
+              axis.text.x = element_text(angle = 45,
                                          hjust = 1,
                                          size = 5,
                                          margin = margin(r=0)),
               plot.title = element_text(hjust = 0.5))
 
-# (5) a box plot might be used.
+rlang::last_error()
+
+# try using graphics devices (png) to set the exact width and height of the image
+
+# (5) another plot
+ggplot(dfTwo) +
+        geom_bar(aes(group, values, fill = group), stat = "identity", width = .8) +
+        ylab("Snippet Frequency") +
+        xlab("Sequence Pairs") +
+        scale_x_continuous(breaks = pretty(1 : numberIDs, n=153)) +
+        ggtitle("Snippet Occurrence Per Sequence Comparison") +
+        theme(legend.position = "none",
+              axis.text.x = element_text(angle = 45,
+                                         hjust = 1,
+                                         size = 6,
+                                         margin = margin(r=0)),
+              plot.title = element_text(hjust = 0.5))
+
 
 rlang::last_error()
 
+# SUPPLEMENTARY DATA VISUALIZATION TOOLS ######################
 
+# Build a table that maps the accession ID pairs to the plots
+
+barplotFrame <- data.frame('accession_id_pair'=snippets$SEQUENCE_PAIRS,
+                           'x_axis_tick'=1:numberIDs)
+
+print(barplotFrame)
 # LAST THINGS #################################################
 
 # clean environment
@@ -105,3 +145,4 @@ dev.off()
 # Clean console
 cat("\014")
 # END #########################
+
