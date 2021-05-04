@@ -83,22 +83,21 @@ def map_snippet_occurrence(sequence_map):
     s_o_map = {}                                # value to return
     seq_list = list(sequence_map)
 
-    for i in range(0, len(sequence_map)):
+    for i in range(len(sequence_map)-1):
         i_key = seq_list[i]                     # get the key of the KVP in the dictionary, key of A
         i_val = sequence_map.get(seq_list[i])   # --//--  value ---------//-------------  , value of A
         value = {}                              # initialize the value to map to the ID (key) of A
-        for j in range(i, len(sequence_map)):   # compare A with every ofther KVP B in the file
-            if i != j:                          # avoid comparing a sequence with itself
-                j_key = seq_list[j]                     # get the key of the KVP in the dictionary, key of B
-                j_val = sequence_map.get(seq_list[j])   # --//--  value ---------//-------------  , value of B
-                snippet_occurrences = {}        # now initialize the value to map to the ID (key) of B
-                # compare the sequences
-                if len(i_val) == len(j_val):  # make sure strings are comparable (same length)
-                    for i in range(len(i_val)):  # for each amino acid
-                        if i_val[i] != j_val[i]:  # if there is a mismatch at the ith aa,
-                            snippet_occurrences[i_val[i], j_val[i]] = i  # save the snippet occurrence
-                value[j_key] = snippet_occurrences  # save the snippet occurrences from comparing A to B
-                s_o_map[i_key] = value  # map key of A to value dictionary
+        for j in range(i + 1, len(sequence_map)):   # compare A with every ofther KVP B in the file
+            j_key = seq_list[j]                     # get the key of the KVP in the dictionary, key of B
+            j_val = sequence_map.get(seq_list[j])   # --//--  value ---------//-------------  , value of B
+            snippet_occurrences = {}        # now initialize the value to map to the ID (key) of B
+            # compare the sequences
+            if len(i_val) == len(j_val):  # make sure strings are comparable (same length)
+                for i in range(len(i_val)):  # for each amino acid
+                    if i_val[i] != j_val[i]:  # if there is a mismatch at the ith aa,
+                        snippet_occurrences[i_val[i], j_val[i]] = i  # save the snippet occurrence
+            value[j_key] = snippet_occurrences  # save the snippet occurrences from comparing A to B
+            s_o_map[i_key] = value  # map key of A to value dictionary
     return s_o_map
 
 
@@ -181,6 +180,14 @@ if __name__ == '__main__':
         print(snippet_map)
         print(snippet_occurrences_between_two_sequences(s_o_map, '_QRU91014.1', '_QRU91938.1'))
         print(s_o_map)
+
+        print(len(s_o_map))
+
+        sum = 0
+        for item in s_o_map.keys():
+            sum += len(s_o_map.get(item))
+        print(sum)
+
         print(snippet_occurrences_between_two_sequences(s_o_map, '_QRU91938.1', '_QRU91014.1'))
         print(ratio_of_snippet_occurrences_to_sequence_length(s_o_map, '_QRU91938.1', '_QRU91014.1'))
 
