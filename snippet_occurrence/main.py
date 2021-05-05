@@ -81,6 +81,7 @@ def map_snippet_occurrence(sequence_map):
     mismatch happens in the sequence and append it to a list of such occurrences for the ID.
     """
     s_o_map = {}                                # value to return
+
     seq_list = list(sequence_map)
 
     for i in range(len(sequence_map)-1):
