@@ -16,7 +16,7 @@ This April, for the following weeks, our work will be in the directory pcovidual
 The following text is copied from the UD Bioinformatics Club Repository README, for historical reasons:
 
 # ud-bioinformatics-club
-University of Dallas Bio Informatics Club
+University of Dallas Bioinformatics Club
 
 ## Friday, March 27th 2020:
 
